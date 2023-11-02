@@ -123,7 +123,11 @@ add_subdirectory(src)
 
 # BUILD_TESTING is declared by CTest module and is ON by default
 if(BUILD_TESTING)
-  add_subdirectory(tests)
+  if(ANDROID)
+    include(CMakeAndroidTesting)
+  else()
+    add_subdirectory(tests)
+  endif()
 endif()
 
 # Examples
