@@ -21,7 +21,7 @@ ANDROID_NDK_HOME=""
 api_min=""
 
 # Lists of ABIs and configurations
-# Adjust as needed
+# Adjust as needed from those values:
 # abi_list=("armeabi-v7a" "arm64-v8a" "x86" "x86_64")
 # config_list=("Debug" "Release")
 abi_list=("armeabi-v7a" "arm64-v8a" "x86" "x86_64")
