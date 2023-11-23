@@ -33,7 +33,7 @@ shared_lib=OFF
 # set to ON to enable testsuite generation
 # The archive will be generated in the build_{abi} directory
 # This option require that fftw and libsndfile have been built
-build_testing=ON
+build_testing=OFF
 
 # set to ON to perform the tests inlined with the build
 # If no device is connected or available, the tests will be skipped
@@ -203,18 +203,19 @@ for abi in "${abi_list[@]}"; do
         # Install library and headers
         make install
 
-        cmake --build . --target create_tarball
-        cmake --build . --target create_benchmark_tarball
-
         # Copy include and lib/ content to android studio file structure
         mkdir -p "${ROOT_LOC}/AndroidStudio/libs/libsamplerate/include"
 	    cp -r "${ROOT_LOC}/libsamplerate/${build_dir}/include/"* "${ROOT_LOC}/AndroidStudio/libs/libsamplerate/include/"
 
 	    mkdir -p "${ROOT_LOC}/AndroidStudio/libs/libsamplerate/lib/${android_lib_dir}/${abi}"
 	    cp -r "${ROOT_LOC}/libsamplerate/${build_dir}/lib/libsamplerate."* "${ROOT_LOC}/AndroidStudio/libs/libsamplerate/lib/${android_lib_dir}/${abi}/"
+        cp -r "${ROOT_LOC}/libsamplerate/COPYING" "${ROOT_LOC}/AndroidStudio/libs/libsamplerate/"
 
         # If testing enabled, run the testsuite
         if [ "$testing" == "ON" ]; then
+            # Create the archives for the testsuite and benchmark
+            cmake --build . --target create_tarball
+            cmake --build . --target create_benchmark_tarball
             # Run the tests
             if [ "$test_inline" == "ON" ]; then
                 run_tests_on_device "${abi}"
