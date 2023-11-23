@@ -209,7 +209,6 @@ for abi in "${abi_list[@]}"; do
 
 	    mkdir -p "${ROOT_LOC}/AndroidStudio/libs/libsamplerate/lib/${android_lib_dir}/${abi}"
 	    cp -r "${ROOT_LOC}/libsamplerate/${build_dir}/lib/libsamplerate."* "${ROOT_LOC}/AndroidStudio/libs/libsamplerate/lib/${android_lib_dir}/${abi}/"
-        cp -r "${ROOT_LOC}/libsamplerate/COPYING" "${ROOT_LOC}/AndroidStudio/libs/libsamplerate/"
 
         # If testing enabled, run the testsuite
         if [ "$testing" == "ON" ]; then
@@ -230,3 +229,5 @@ for abi in "${abi_list[@]}"; do
     done
 done
 
+# Copy license files to android studio directory
+cp -r "${ROOT_LOC}/libsndfile/COPYING" "${ROOT_LOC}/AndroidStudio/libs/libsndfile/"
