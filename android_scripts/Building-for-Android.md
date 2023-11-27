@@ -30,7 +30,7 @@ Place the precompiled FFTW3 library or or its source along with the libsamplerat
 1. Copy `android_scripts/build_libsamplerate.sh` to the top-level directory.
 2. Set `ANDROID_NDK_HOME` and `api_min` in the script to match your setup.
 3. Set `build_testing=ON` in the script. Optionally set `test_inline` as you wish.
-4. Run `./build_libsndfile.sh` from the top-level directory.
+4. Run `./build_libsamplerate.sh` from the top-level directory.
 
 #### With FFTW3 source
 
