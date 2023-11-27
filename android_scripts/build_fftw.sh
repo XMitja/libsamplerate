@@ -21,6 +21,10 @@ api_min=""
 # abi_list=("armeabi-v7a" "arm64-v8a" "x86" "x86_64")
 abi_list=("armeabi-v7a" "arm64-v8a" "x86" "x86_64")
 
+# Set to "ON" to enable precompiled lib
+# A precompiled_libs directory will be created in the top-level directory
+generate_precompiled_lib="ON"
+
 # ------- End of user configuration ------- #
 
 # Check if ANDROID_NDK_HOME and api_min are set
@@ -63,8 +67,8 @@ export API=$(echo $api_min | grep -o '[0-9]*')
 
 set -e
 
-ARM32_SPECIFIC="--enable-neon --enable-armv7a-pmccntr"
-ARM64_SPECIFIC="--enable-neon --enable-armv8-pmccntr-el0"
+ARM32_SPECIFIC="--enable-neon --enable-armv7a-pmccntr --enable-single"
+ARM64_SPECIFIC="--enable-neon --enable-armv8-pmccntr-el0 --enable-fma"
 X86_SPECIFIC="--enable-sse2 --enable-avx2"
 X86_64_SPECIFIC="--enable-sse2 --enable-avx2"
 
@@ -122,5 +126,18 @@ for abi in "${abi_list[@]}"; do
                 
 done
 
+# Copy the static library to the precompiled_libs directory if enabled
+if [ "$generate_precompiled_lib" = "ON" ]; then
+    DEST=$ROOT_LOC/precompiled_libs/fftw
+    mkdir -p $DEST
+    for abi in "${abi_list[@]}"; do
+        BUILD_DIR="build_${abi}"  
+        mkdir -p $DEST/$BUILD_DIR/lib          
+        cp $fftw_root/$BUILD_DIR/lib/libfftw3.a $DEST/$BUILD_DIR/lib/libfftw3.a
+        cp -r $fftw_root/$BUILD_DIR/include $DEST/$BUILD_DIR/include
+        cp -r $fftw_root/$BUILD_DIR/bin $DEST/$BUILD_DIR/bin
+    done
+    cp $fftw_root/COPYING $DEST/COPYING
+fi
 
 
