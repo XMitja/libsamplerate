@@ -67,7 +67,8 @@ run_tests_on_device() {
             echo "Running tests for ABI: $target_abi on device $device with archive $archive_name"
             adb shell << EOF
 cd "${device_path}"
-tar xvf ${archive_name}.tar.gz
+gzip -d ${archive_name}.tar.gz
+tar xvf ${archive_name}.tar
 cd ${archive_name}
 sh ./test_wrapper.sh | tee ../tests_result
 cd ..
