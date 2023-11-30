@@ -70,6 +70,7 @@ cd "${device_path}"
 gzip -d ${archive_name}.tar.gz
 tar xvf ${archive_name}.tar
 cd ${archive_name}
+chmod +x ./test_wrapper.sh
 sh ./test_wrapper.sh | tee ../tests_result
 cd ..
 #rm -r ${archive_name}*

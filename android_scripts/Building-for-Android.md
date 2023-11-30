@@ -81,11 +81,14 @@ The libsamplerate testsuite and benchmarks for Android must be installed on a de
     gzip -d <archive_name>.tar.gz
     tar xvf <archive_name>.tar
     cd <archive_name>
+    chmod 755 test_wrapper.sh
     sh ./test_wrapper.sh | tee ../tests_result
     cd ..
     rm -r <archive_name>*
     exit
     adb pull /data/local/tmp/tests_result .
+
+**Note**: If using an emulator in Android Studio, it is recommended to use Google API emulators from API 25 and up as emulators below API 25 may lack many common commands (tar, sed, tee ,etc). This may apply to real devices as well.
 
 The command are similar for the benchmark archive but for the `sh ./test_wrapper.sh` command. Keep in mind that those programs are designed for a standard unix type of system as as such, can be difficult to use on a device with very limited shell capabilities.
 
