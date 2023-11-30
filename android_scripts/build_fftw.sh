@@ -67,7 +67,7 @@ export API=$(echo $api_min | grep -o '[0-9]*')
 
 set -e
 
-ARM32_SPECIFIC="--enable-neon --enable-armv7a-pmccntr --enable-single"
+ARM32_SPECIFIC="--enable-armv7a-pmccntr"
 ARM64_SPECIFIC="--enable-neon --enable-armv8-pmccntr-el0 --enable-fma"
 X86_SPECIFIC="--enable-sse2 --enable-avx2"
 X86_64_SPECIFIC="--enable-sse2 --enable-avx2"
